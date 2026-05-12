@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { LogOut, User as UserIcon } from "lucide-react"
 import { MobileNav } from "./mobile-nav"
+import { ThemeToggle } from "@/components/theme-toggle"
 
 interface HeaderProps {
   user: User
@@ -34,6 +35,7 @@ export function Header({ user }: HeaderProps) {
       </div>
 
       <div className="flex items-center gap-2">
+        <ThemeToggle />
         <div className="flex items-center gap-2 bg-secondary rounded-full px-3 py-1.5">
           <UserIcon className="h-4 w-4 text-muted-foreground" />
           <span className="text-sm font-medium hidden sm:block">{name}</span>
