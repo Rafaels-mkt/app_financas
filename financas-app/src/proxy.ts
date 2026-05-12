@@ -27,15 +27,19 @@ export async function proxy(request: NextRequest) {
 
   const { data: { user } } = await supabase.auth.getUser()
 
-  const isAuthPage = request.nextUrl.pathname.startsWith("/auth")
-  const isPublicPage = request.nextUrl.pathname === "/"
+  const { pathname } = request.nextUrl
+  const isAuthPage = pathname.startsWith("/auth")
+  const isLandingPage = pathname === "/"
+  const isProtectedPage = !isAuthPage && !isLandingPage
 
-  if (!user && !isAuthPage && !isPublicPage) {
-    return NextResponse.redirect(new URL("/auth/login", request.url))
+  // Usuário logado na landing page ou em páginas de auth → vai pro dashboard
+  if (user && (isLandingPage || isAuthPage)) {
+    return NextResponse.redirect(new URL("/dashboard", request.url))
   }
 
-  if (user && isAuthPage) {
-    return NextResponse.redirect(new URL("/dashboard", request.url))
+  // Usuário não logado tentando acessar página protegida → vai pro login
+  if (!user && isProtectedPage) {
+    return NextResponse.redirect(new URL("/auth/login", request.url))
   }
 
   return supabaseResponse
