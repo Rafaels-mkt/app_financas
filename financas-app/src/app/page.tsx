@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { TrendingUp, BarChart3, Shield, Smartphone, Download, Tag, ArrowRight, CheckCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { ThemeToggle } from "@/components/theme-toggle"
 
 const features = [
   {
@@ -43,9 +44,9 @@ const features = [
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen flex flex-col bg-white">
+    <div className="min-h-screen flex flex-col bg-background">
       {/* Navbar */}
-      <header className="border-b sticky top-0 z-50 bg-white/95 backdrop-blur">
+      <header className="border-b sticky top-0 z-50 bg-background/95 backdrop-blur">
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="bg-primary rounded-lg p-1.5">
@@ -53,7 +54,8 @@ export default function LandingPage() {
             </div>
             <span className="font-bold text-lg">FinançasPessoais</span>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
             <Link href="/auth/login">
               <Button variant="ghost">Entrar</Button>
             </Link>
@@ -66,15 +68,15 @@ export default function LandingPage() {
 
       {/* Hero */}
       <section className="flex flex-col items-center justify-center text-center px-4 py-24">
-        <div className="inline-flex items-center gap-2 bg-gray-100 text-gray-600 rounded-full px-4 py-1.5 text-sm mb-8">
+        <div className="inline-flex items-center gap-2 bg-muted text-muted-foreground rounded-full px-4 py-1.5 text-sm mb-8">
           <CheckCircle className="h-4 w-4 text-green-500" />
           100% gratuito e sem anúncios
         </div>
-        <h1 className="text-5xl md:text-6xl font-extrabold text-gray-900 max-w-3xl leading-tight mb-6">
+        <h1 className="text-5xl md:text-6xl font-extrabold text-foreground max-w-3xl leading-tight mb-6">
           Controle suas finanças{" "}
           <span className="text-primary">com clareza</span>
         </h1>
-        <p className="text-lg text-gray-500 max-w-xl mb-10">
+        <p className="text-lg text-muted-foreground max-w-xl mb-10">
           Registre receitas e despesas, acompanhe seu saldo em tempo real e visualize gráficos por
           categoria. Simples, rápido e seguro.
         </p>
@@ -93,11 +95,11 @@ export default function LandingPage() {
       </section>
 
       {/* Features */}
-      <section className="bg-gray-50 py-20 px-4">
+      <section className="bg-muted/40 py-20 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-3">Tudo que você precisa</h2>
-            <p className="text-gray-500 max-w-xl mx-auto">
+            <h2 className="text-3xl font-bold text-foreground mb-3">Tudo que você precisa</h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">
               Uma ferramenta completa para organizar sua vida financeira de forma visual e intuitiva.
             </p>
           </div>
@@ -105,12 +107,12 @@ export default function LandingPage() {
             {features.map((f) => {
               const Icon = f.icon
               return (
-                <div key={f.title} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                <div key={f.title} className="bg-card rounded-2xl p-6 shadow-sm border">
                   <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${f.color}`}>
                     <Icon className="h-6 w-6" />
                   </div>
-                  <h3 className="font-bold text-gray-900 mb-2">{f.title}</h3>
-                  <p className="text-gray-500 text-sm leading-relaxed">{f.description}</p>
+                  <h3 className="font-bold text-card-foreground mb-2">{f.title}</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{f.description}</p>
                 </div>
               )
             })}
