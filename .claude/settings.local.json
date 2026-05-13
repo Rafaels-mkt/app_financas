@@ -6,7 +6,8 @@
       "PowerShell($env:NEXT_PUBLIC_SUPABASE_URL = \"https://dummy.supabase.co\"; $env:NEXT_PUBLIC_SUPABASE_ANON_KEY = \"dummy-key\"; Set-Location \"C:\\\\Users\\\\User\\\\Desktop\\\\app_financas\"; npm run build 2>&1 | Select-String -Pattern \"✓|✗|error|warning|Route\" | Select-Object -First 20)",
       "Bash(git add *)",
       "Bash(git commit -m ' *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(npm run *)"
     ]
   }
 }

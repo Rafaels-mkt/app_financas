@@ -8,7 +8,8 @@ import { TransactionForm } from "@/components/transactions/transaction-form"
 import { TransactionFilters } from "@/components/transactions/transaction-filters"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Plus, Loader2 } from "lucide-react"
+import { exportTransactionsToCSV } from "@/lib/utils"
+import { Plus, Loader2, Download } from "lucide-react"
 
 const now = new Date()
 
@@ -58,10 +59,26 @@ export default function TransactionsPage() {
           <h1 className="text-2xl font-bold">Transações</h1>
           <p className="text-muted-foreground text-sm">Gerencie suas receitas e despesas</p>
         </div>
-        <Button onClick={() => setShowForm(true)}>
-          <Plus className="h-4 w-4" />
-          Nova Transação
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button
+            variant="outline"
+            onClick={() => {
+              const MONTHS = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho",
+                "Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"]
+              const label = `${MONTHS[Number(filters.month) - 1]}_${filters.year}`
+              exportTransactionsToCSV(transactions, `transacoes_${label}.csv`)
+            }}
+            disabled={transactions.length === 0}
+            title="Exportar planilha CSV"
+          >
+            <Download className="h-4 w-4" />
+            Exportar CSV
+          </Button>
+          <Button onClick={() => setShowForm(true)}>
+            <Plus className="h-4 w-4" />
+            Nova Transação
+          </Button>
+        </div>
       </div>
 
       <TransactionFilters filters={filters} onChange={setFilters} />
