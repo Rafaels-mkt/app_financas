@@ -19,7 +19,7 @@ export function Sidebar() {
         <div className="bg-primary rounded-lg p-1.5">
           <TrendingUp className="h-5 w-5 text-white" />
         </div>
-        <span className="font-bold text-lg">FinançasFácil</span>
+        <span className="font-bold text-sm leading-tight">Rotina Financeira do Rafa</span>
       </div>
 
       <nav className="flex-1 px-3 py-4 space-y-1">
@@ -41,7 +41,7 @@ export function Sidebar() {
       </nav>
 
       <div className="px-6 py-4 border-t">
-        <p className="text-xs text-muted-foreground">FinançasFácil v1.0</p>
+        <p className="text-xs text-muted-foreground">Rotina Financeira do Rafa v1.0</p>
       </div>
     </aside>
   )

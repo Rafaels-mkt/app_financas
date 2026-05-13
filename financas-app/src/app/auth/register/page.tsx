@@ -51,7 +51,7 @@ export default function RegisterPage() {
             <div className="bg-primary rounded-xl p-2">
               <TrendingUp className="h-6 w-6 text-white" />
             </div>
-            <span className="text-2xl font-bold">FinançasPessoais</span>
+            <span className="text-2xl font-bold">Rotina Financeira do Rafa</span>
           </Link>
         </div>
 

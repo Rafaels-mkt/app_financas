@@ -32,7 +32,7 @@ export function MobileNav() {
               <div className="bg-primary rounded-lg p-1.5">
                 <TrendingUp className="h-5 w-5 text-white" />
               </div>
-              <span className="font-bold text-lg">FinançasFácil</span>
+              <span className="font-bold text-sm leading-tight">Rotina Financeira do Rafa</span>
             </div>
 
             <nav className="space-y-1">

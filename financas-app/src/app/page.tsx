@@ -52,7 +52,7 @@ export default function LandingPage() {
             <div className="bg-primary rounded-lg p-1.5">
               <TrendingUp className="h-5 w-5 text-white" />
             </div>
-            <span className="font-bold text-lg">FinançasPessoais</span>
+            <span className="font-bold text-lg">Rotina Financeira do Rafa</span>
           </div>
           <div className="flex items-center gap-2">
             <ThemeToggle />
@@ -137,7 +137,7 @@ export default function LandingPage() {
 
       {/* Footer */}
       <footer className="border-t py-6 text-center text-sm text-gray-400">
-        © {new Date().getFullYear()} FinançasPessoais. Feito com Next.js + Supabase.
+        © {new Date().getFullYear()} Rotina Financeira do Rafa. Feito com Next.js + Supabase.
       </footer>
     </div>
   )

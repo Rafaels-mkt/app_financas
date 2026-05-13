@@ -43,7 +43,7 @@ export default function LoginPage() {
             <div className="bg-primary rounded-xl p-2">
               <TrendingUp className="h-6 w-6 text-white" />
             </div>
-            <span className="text-2xl font-bold text-gray-900">FinançasFácil</span>
+            <span className="text-2xl font-bold text-gray-900">Rotina Financeira do Rafa</span>
           </div>
         </div>
 
