@@ -1,36 +1,116 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Rotina Financeira do Rafa
 
-## Getting Started
+App de gestão financeira pessoal com Next.js 16, Supabase e Tailwind CSS.
 
-First, run the development server:
+## Stack
+
+- **Frontend:** Next.js 16 (App Router) + TypeScript + Tailwind CSS v4 + shadcn/ui
+- **Backend/BaaS:** Supabase (PostgreSQL + Auth + Row Level Security)
+- **Gráficos:** Recharts
+- **Deploy:** Vercel
+
+---
+
+## Rodar localmente
+
+### 1. Instalar dependências
+
+```bash
+cd financas-app
+npm install
+```
+
+### 2. Configurar variáveis de ambiente
+
+```bash
+cp .env.local.example .env.local
+```
+
+Preencha `.env.local` com suas chaves do Supabase:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://xxxx.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=sb_publishable_xxxx
+```
+
+> ⚠️ **Nunca** commite o arquivo `.env.local`.
+
+### 3. Criar as tabelas no Supabase
+
+No **SQL Editor** do seu projeto Supabase, execute o conteúdo de `supabase-schema.sql`.
+
+### 4. Iniciar o servidor
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Acesse [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Deploy na Vercel
 
-## Learn More
+### Passo 1 — Importar repositório
 
-To learn more about Next.js, take a look at the following resources:
+1. Acesse [vercel.com/new](https://vercel.com/new)
+2. Conecte sua conta GitHub e selecione o repositório `app_financas`
+3. O `vercel.json` na raiz já configura o **Root Directory** como `financas-app` automaticamente
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Passo 2 — Adicionar variáveis de ambiente
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Na tela de configuração do projeto na Vercel, adicione:
 
-## Deploy on Vercel
+| Nome | Valor |
+|------|-------|
+| `NEXT_PUBLIC_SUPABASE_URL` | `https://xxxx.supabase.co` |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | `sb_publishable_xxxx` |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Passo 3 — Deploy
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Clique em **Deploy**. A Vercel detecta Next.js automaticamente.
+
+### Passo 4 — Configurar redirect no Supabase
+
+No painel do Supabase, vá em **Authentication → URL Configuration** e adicione a URL da Vercel em **Redirect URLs**:
+
+```
+https://seu-app.vercel.app/**
+```
+
+---
+
+## Segurança
+
+| Variável | Exposição | Por quê é seguro |
+|----------|-----------|-----------------|
+| `NEXT_PUBLIC_SUPABASE_URL` | Frontend (pública) | É apenas o endpoint da API — não dá acesso ao banco |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Frontend (pública) | Chave de acesso mínimo; segurança garantida pelo **Row Level Security (RLS)** |
+| `SUPABASE_SERVICE_ROLE_KEY` | ❌ Nunca usar no frontend | Acesso total ao banco — use apenas em servidores |
+
+O RLS garante que cada usuário só acessa **seus próprios dados**, mesmo que a chave anon seja pública.
+
+---
+
+## Estrutura do projeto
+
+```
+financas-app/
+├── src/
+│   ├── app/
+│   │   ├── (app)/          # Rotas protegidas (dashboard, transações)
+│   │   ├── auth/           # Login, registro, callback
+│   │   └── page.tsx        # Landing page
+│   ├── components/
+│   │   ├── dashboard/      # Cards, gráfico, últimas transações
+│   │   ├── layout/         # Sidebar, Header, MobileNav
+│   │   ├── transactions/   # Form, List, Filters
+│   │   └── ui/             # Componentes base (shadcn/ui)
+│   ├── lib/
+│   │   ├── supabase/       # Clients browser e server
+│   │   ├── categories.ts   # 12 categorias pré-definidas
+│   │   └── utils.ts        # Formatação + exportação CSV
+│   └── types/              # Tipos TypeScript
+├── supabase-schema.sql     # SQL para criar tabelas + RLS
+└── .env.local.example      # Modelo das variáveis de ambiente
+```
